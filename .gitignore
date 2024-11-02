@@ -1,2 +1,5 @@
-# spacex.libera
+# spacex-libera
 .gitconfig
+*.log
+*.gz
+*.sh
