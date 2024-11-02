@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>spacex-libera</title>
+
+<script>
+const repoOwner = "spacex-libera";
+const repoName = "spacex-libera";
+
+logVisitorMessage(`Someone visited my github pages website ${repoOwner}/${repoName}`);
+writeLogsToElement();
+
+function logVisitorMessage(event_details) {
+  const apiUrlBase = 'https://api.github-pages-visitor-log.net';
+  const data = {
+    repo_owner: repoOwner,
+    repo_name: repoName,
+    event_details: event_details
+  };
+
+  fetch(apiUrlBase + '/log', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === 'logged') {
+      console.log('Message logged successfully:', data);
+    } else {
+      console.error('Error logging message:', data);
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
+
+function formatLogsForDisplay(logs) {
+  let formattedLogs = [];
+  logs.forEach(log => {
+    let details = log.event_details.split('\n').join('\t');
+    let timeAgo = moment.utc(log.timestamp).fromNow();
+    formattedLogs.push(`${timeAgo.padEnd(22, ' ')}${details}`);
+  });
+  return formattedLogs.join('\n');
+}
+
+function writeLogsToElement(logsElementId = "github-pages-log-element", repoOwner = "spacex-libera", repoName = "spacex-libera") {
+  const apiUrlBase = 'https://api.github-pages-visitor-log.net';
+  document.getElementById(logsElementId).textContent = "loading...";
+  new Promise(resolve => setTimeout(resolve, 1500))
+  .then(() => fetch(apiUrlBase + '/fetch-logs?repo_owner=' + repoOwner + '&repo_name=' + repoName))
+  .then(response => response.json())
+  .then(data => {
+      document.getElementById(logsElementId).textContent = formatLogsForDisplay(data.logs);
+  });
+}
+</script>
+
+<meta http-equiv="refresh" content="0; url=log.htm" />
+</head>
+<body>
+
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<div id="github-pages-log-container" style="font-family: Arial, sans-serif; border: 1px solid #ccc; padding: 10px; width: 920px; min-height: 80px; box-shadow: 3px 3px 5px #aaa; margin: 10px; border-radius: 5px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+    <span style="font-weight: bold;">Recent messages</span>
+    <span style="font-size: 0.8em;">courtesy of the <a href="https://github.com/jwiltshiregordon/github-pages-visitor-log" style="color: #007BFF; text-decoration: none;">github pages visitor log</a> project</span>
+    <button onclick="writeLogsToElement()" style="background-color: #007BFF; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px;">Refresh</button>
+  </div>
+  <div style="border-top: 1px solid #ccc; padding-top: 10px; max-height: 310px; overflow-y: auto;">
+    <pre><code id="github-pages-log-element"></code></pre>
+  </div>
+</div>
+
+
+</body>
+</html>
+
