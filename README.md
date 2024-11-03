@@ -1,1 +1,1 @@
-##spacex @ libera stats by cosmos
+##spacex irc.libera.chat stats by cosmos
