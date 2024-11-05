@@ -46,6 +46,6 @@ test html code?
 - [ ] This github site is a fandom channel to SpaceX (Space Exploration Technologies Corp.) and in no-way is associated to SpaceX views are our own within the ##SpaceX irc.libera.chat channel.
 
 <picture>
-  <img alt="SpaceX Banner Logo." src="pics/SpaceX-Emblema.png">
+  <img alt="SpaceX Banner Logo." src="https://github.com/spacex-libera/spacex-libera.github.io/blob/main/pics/SpaceX-Emblema.png">
 </picture>
 
