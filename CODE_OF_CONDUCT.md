@@ -14,7 +14,7 @@ The use/change of nicks with inflammatory words (swearwords, etc) will not be pe
 
 Behavior forbidden by Libera.Chat <a name="https://libera.chat/policies">network policy</a> ( https://libera.chat/policies ) is banned in this channel.
 
-Followers engaging in bad faith interactions will asked or removed at the discretion of the channel operators.
+Followers engaging in bad faith interactions will be asked leave or removed at the discretion of the channel operators.
 
 - Examples of bad inerations or but not limited to also include:
 
