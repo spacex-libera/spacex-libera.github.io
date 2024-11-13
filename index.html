@@ -3,21 +3,7 @@
 <head>
   <title>spacex-libera</title>
 
-<script type="module">
-  await navigator.serviceWorker.register("./sw.js", {
-    scope: "./"
-  });
-  navigator.serviceWorker.addEventListener("controllerchange", async (e) => {
-    // Do stuff when the ServiceWorker has control of the WindowClient
-    fetch(location.href, {
-      method: "head"
-    });
-  });
-</script>
-
 <!-- 
-Above script sourced from
-https://github.com/orgs/community/discussions/31474#discussioncomment-9814213
  -->
  
 <meta http-equiv="refresh" content="0; url=https://spacex-libera.github.io/log.htm" />
