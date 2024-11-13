@@ -3,63 +3,22 @@
 <head>
   <title>spacex-libera</title>
 
-<script>
-const repoOwner = "spacex-libera";
-const repoName = "spacex-libera";
-
-logVisitorMessage(`Someone visited my github pages website ${repoOwner}/${repoName}`);
-writeLogsToElement();
-
-function logVisitorMessage(event_details) {
-  const apiUrlBase = 'https://api.github-pages-visitor-log.net';
-  const data = {
-    repo_owner: repoOwner,
-    repo_name: repoName,
-    event_details: event_details
-  };
-
-  fetch(apiUrlBase + '/log', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.status === 'logged') {
-      console.log('Message logged successfully:', data);
-    } else {
-      console.error('Error logging message:', data);
-    }
-  })
-  .catch((error) => {
-    console.error('Error:', error);
+<script type="module">
+  await navigator.serviceWorker.register("./sw.js", {
+    scope: "./"
   });
-}
-
-function formatLogsForDisplay(logs) {
-  let formattedLogs = [];
-  logs.forEach(log => {
-    let details = log.event_details.split('\n').join('\t');
-    let timeAgo = moment.utc(log.timestamp).fromNow();
-    formattedLogs.push(`${timeAgo.padEnd(22, ' ')}${details}`);
+  navigator.serviceWorker.addEventListener("controllerchange", async (e) => {
+    // Do stuff when the ServiceWorker has control of the WindowClient
+    fetch(location.href, {
+      method: "head"
+    });
   });
-  return formattedLogs.join('\n');
-}
-
-function writeLogsToElement(logsElementId = "github-pages-log-element", repoOwner = "spacex-libera", repoName = "spacex-libera") {
-  const apiUrlBase = 'https://api.github-pages-visitor-log.net';
-  document.getElementById(logsElementId).textContent = "loading...";
-  new Promise(resolve => setTimeout(resolve, 1500))
-  .then(() => fetch(apiUrlBase + '/fetch-logs?repo_owner=' + repoOwner + '&repo_name=' + repoName))
-  .then(response => response.json())
-  .then(data => {
-      document.getElementById(logsElementId).textContent = formatLogsForDisplay(data.logs);
-  });
-}
 </script>
-<!-- Write your comments here -->
+
+<!-- 
+Above script sourced from
+https://github.com/orgs/community/discussions/31474#discussioncomment-9814213
+ -->
  
 <meta http-equiv="refresh" content="0; url=https://spacex-libera.github.io/log.htm" />
 
